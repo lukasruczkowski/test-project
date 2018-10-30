@@ -1,7 +1,8 @@
-import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Post, UnauthorizedException, UsePipes } from '@nestjs/common';
 import { AuthGrantDto } from './dto/auth-grant.dto';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+import { PayloadValidationPipe } from '../common/pipes/payload-validation.pipe';
 
 @Controller('auth')
 export class AuthController {
@@ -11,6 +12,7 @@ export class AuthController {
   ) {}
 
   @Post('/token')
+  @UsePipes(new PayloadValidationPipe())
   public async getToken(@Body() grantDto: AuthGrantDto) {
     const user = await this.userService.getUserByEmail(grantDto.username);
 

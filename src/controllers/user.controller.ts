@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, UsePipes } from '@nestjs/common';
 import * as uuid from 'uuid';
 
 import { UserService } from '../services/user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from '../entities/user';
 import { AuthGuard } from '../common/guards/auth.guard';
+import { PayloadValidationPipe } from '../common/pipes/payload-validation.pipe';
 
 @Controller('users')
 export class UserController {
@@ -13,6 +14,7 @@ export class UserController {
   ) {}
 
   @Post()
+  @UsePipes(new PayloadValidationPipe())
   public async signUp(@Body() createUserDto: CreateUserDto) {
     const user = new User();
     user.id = uuid.v4();
