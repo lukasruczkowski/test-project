@@ -5,7 +5,7 @@ https://app.swaggerhub.com/apis-docs/lukas.ruczkowski/test-api/0.1.0
 ## Installation
 
 ```bash
-$ yarn install
+$ yarn
 ```
 
 ## Running the app
