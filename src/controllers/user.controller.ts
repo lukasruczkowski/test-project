@@ -50,6 +50,7 @@ export class UserController {
   @UseGuards(new AuthGuard())
   // TODO: validate input
   public async updateOne(@Param('id') id, @Body() updateUserDto) {
-    return this.userService.updateUser(id, updateUserDto);
+    const user = await this.userService.updateUser(id, updateUserDto);
+    return user.toResponseObject();
   }
 }
