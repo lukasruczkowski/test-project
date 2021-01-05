@@ -9,6 +9,7 @@ import { UserRepository } from './repositories/user.repository';
 import { AuthService } from './services/auth.service';
 import { JwtService } from './services/jwt.service';
 import { JwtStrategy } from './common/passport/jwt.strategy';
+import { AppController } from './controllers/app.controller';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { JwtStrategy } from './common/passport/jwt.strategy';
     }),
   ],
   controllers: [
+    AppController,
     UserController,
     AuthController,
   ],
