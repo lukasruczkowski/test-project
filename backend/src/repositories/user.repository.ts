@@ -33,6 +33,10 @@ export class UserRepository {
         .value();
     }
 
+    if (!record) {
+      return null;
+    }
+
     return new User(record);
   }
 

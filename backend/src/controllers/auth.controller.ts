@@ -26,7 +26,12 @@ export class AuthController {
   @ApiResponse({ status: 200, type: LoginResponseDto })
   @UsePipes(new JoiValidationPipe(loginSchema))
   public async login(@Body() payload: LoginDto): Promise<LoginResponseDto> {
-    const user = await this.userService.getUserByEmail(payload.email);
+    let user: User;
+    try {
+      user = await this.userService.getUserByEmail(payload.email);
+    } catch (e) {
+      throw new UnauthorizedException();
+    }
 
     if (!user || !(await user.isPasswordValid(payload.password))) {
       throw new UnauthorizedException('Unauthorized Access');
